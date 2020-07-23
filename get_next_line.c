@@ -6,7 +6,7 @@
 /*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:59:43 by matrus            #+#    #+#             */
-/*   Updated: 2020/06/14 17:35:48 by matrus           ###   ########.fr       */
+/*   Updated: 2020/07/23 12:53:28 by matrus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			get_next_line(int fd, char **line)
 	if (!(cur_buff = is_fd_in_buff_list(buff_list, fd)))
 	{
 		if (!(cur_buff = new_buff(fd, &buff_list)))
-			return (-1);
+			return (-2);
 		lst_push(&buff_list, cur_buff);
 	}
 	cur_buff->len_total = 0;
@@ -30,7 +30,7 @@ int			get_next_line(int fd, char **line)
 	{
 		if (!(*line = ft_realloc(*line, cur_buff->len_total + 1,
 			cur_buff->len_total - cur_buff->len)))
-			return (del_buff_from_list(cur_buff) - 1);
+			return (del_buff_from_list(cur_buff) - 2);
 		copy_buff_to_line(*line, cur_buff);
 		if ((ret_val = need_return(cur_buff, *line)))
 			return (ret_val - 1);
